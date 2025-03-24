@@ -4,15 +4,10 @@ from os.path import join
 from pathlib import Path
 
 machines = {
-    "MyEnv":{
-        "RepoPath":None,
-        "ExecutablePath":None,
-        "OutputDirs": [None],
-    },
-    "TestEnv": {
-        "RepoPath": r"F:\Code\02_Graphics\Gaia",
-        "ExecutablePath": r"F:\Code\Projects\Graphics\PBDDynamics_GAIA\Release\PBDDynamics.exe",
-        "OutputDirs": [r"E:\Data2\E_PBDCollision2Results"],
+    "MyEnv": {
+        "RepoPath": r"D:\project\library\Gaia",
+        "ExecutablePath": r"D:\project\library\Gaia\Simulator\PBDDynamics\build\Release\pbd-dynamics.exe",
+        "OutputDirs": [r"D:\project\library\Gaia\Simulator\PBDDynamics\output"],
     },
 }
 
@@ -95,6 +90,9 @@ def genRunningParameters2(machineName, experimentPath, experimentName, modelsInf
             cmd.append(otherArguments)
 
     outputCmdFile = join(parameterOutputDir, "Run_" + machineName + ".cmd")
+    
+    print(outputCmdFile)
+    
     f = open(outputCmdFile, 'w')
     f.write(" ".join(cmd))
     print("Command: ", "\n".join(cmd))
@@ -108,23 +106,23 @@ def genRunningParameters2(machineName, experimentPath, experimentName, modelsInf
         print("Running command took: ", T)
 
 
-if __name__ == '__main__':
-    # generate thinbeam rotation running parameters for DataChewer
+# if __name__ == '__main__':
+    # # generate thinbeam rotation running parameters for DataChewer
+    # # rotatorArguments = ["-a", "3.14", "-e", "20"]
+    # # recoveryState = r"Demo23_Twist\ThinBeam_subdivided_NeoHookean\run1\RecoveryStates\A00000590.json"
+    # # genRunningParameters("../../Bin/Run_DataChewer_ThinBeam_Neohookean.cmd", "DataChewer", "Demo23_Twist\ThinBeam_subdivided_NeoHookean", "Models.json",
+    # #                      "Parameters.json", "run2_withStop",
+    # #                      exeName = "P12_PBDPhysicsWithRotator.exe", otherArguments=rotatorArguments, recoverState=recoveryState )
+
+    # # generate thinbeam rotation running parameters for DataChewer
     # rotatorArguments = ["-a", "3.14", "-e", "20"]
     # recoveryState = r"Demo23_Twist\ThinBeam_subdivided_NeoHookean\run1\RecoveryStates\A00000590.json"
-    # genRunningParameters("../../Bin/Run_DataChewer_ThinBeam_Neohookean.cmd", "DataChewer", "Demo23_Twist\ThinBeam_subdivided_NeoHookean", "Models.json",
-    #                      "Parameters.json", "run2_withStop",
-    #                      exeName = "P12_PBDPhysicsWithRotator.exe", otherArguments=rotatorArguments, recoverState=recoveryState )
+    # genRunningParameters("../../Bin/Run_AnkaPC01_ThinBeam_Neohookean.cmd", "AnkaPC01", "Demo23_Twist\ThinBeam_subdivided_NeoHookean", "Models.json",
+                         # "Parameters.json", "run6_withStop_CCD_VelDamping_grav0.1",
+                         # exeName = "P12_PBDPhysicsWithRotator.exe", otherArguments=rotatorArguments, recoverState=recoveryState )
 
-    # generate thinbeam rotation running parameters for DataChewer
-    rotatorArguments = ["-a", "3.14", "-e", "20"]
-    recoveryState = r"Demo23_Twist\ThinBeam_subdivided_NeoHookean\run1\RecoveryStates\A00000590.json"
-    genRunningParameters("../../Bin/Run_AnkaPC01_ThinBeam_Neohookean.cmd", "AnkaPC01", "Demo23_Twist\ThinBeam_subdivided_NeoHookean", "Models.json",
-                         "Parameters.json", "run6_withStop_CCD_VelDamping_grav0.1",
-                         exeName = "P12_PBDPhysicsWithRotator.exe", otherArguments=rotatorArguments, recoverState=recoveryState )
-
-    # generate 2 squishyBall colliding running parameters for AnkAPC01
-    # recoveryState = r"Demo09_SquishyBall1_lowres\BowlBoundary\Hollow_2_MassSrping\run1\RecoveryStates\A00000900.json"
-    # genRunningParameters("../../Bin/Run_AnkaPC01_2_squishyBall_MassSpring.cmd", "AnkaPC01", "Demo09_SquishyBall1_lowres\BowlBoundary\hollowMassSpring",
-    #                      "Models_num_2_withCCD.json", "Parameters_num_2_withCCD.json", "run2_withCCD",
-    #                      exeName = "P08_PBDPhysicsDemo_temp.exe",  recoverState=recoveryState )
+    # # generate 2 squishyBall colliding running parameters for AnkAPC01
+    # # recoveryState = r"Demo09_SquishyBall1_lowres\BowlBoundary\Hollow_2_MassSrping\run1\RecoveryStates\A00000900.json"
+    # # genRunningParameters("../../Bin/Run_AnkaPC01_2_squishyBall_MassSpring.cmd", "AnkaPC01", "Demo09_SquishyBall1_lowres\BowlBoundary\hollowMassSpring",
+    # #                      "Models_num_2_withCCD.json", "Parameters_num_2_withCCD.json", "run2_withCCD",
+    # #                      exeName = "P08_PBDPhysicsDemo_temp.exe",  recoverState=recoveryState )

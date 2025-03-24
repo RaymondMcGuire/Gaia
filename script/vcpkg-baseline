@@ -1,0 +1,1 @@
+vcpkg x-update-baseline --add-initial-baseline

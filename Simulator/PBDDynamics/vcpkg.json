@@ -1,0 +1,20 @@
+{
+    "name": "pbd-dynamics",
+    "version-string": "0.0.1",
+    "dependencies": [
+        "tbb",
+        "eigen3",
+        "embree3"
+    ],
+    "overrides": [
+        {
+            "name": "eigen3",
+            "version": "3.4.0"
+        },
+        {
+            "name": "embree3",
+            "version": "3.13.5#4"
+        }
+    ],
+    "builtin-baseline": "1faad557cd7435901d7eac7b0b7f38e3e865701c"
+}

@@ -1,0 +1,2 @@
+D:\project\library\Gaia\Simulator\PBDDynamics\build\Release\pbd-dynamics.exe D:\project\library\Gaia\Simulator\PBDDynamics\ParameterGen\Parameters\S01_OctopusDropping\Test_Substep20_DCD_CCD\Models.json D:\project\library\Gaia\Simulator\PBDDynamics\ParameterGen\Parameters\S01_OctopusDropping\Test_Substep20_DCD_CCD\Parameters.json D:\project\library\Gaia\Simulator\PBDDynamics\output\S01_OctopusDropping\Test_Substep20_DCD_CCD -R D:\project\library\Gaia
+cmd /k
