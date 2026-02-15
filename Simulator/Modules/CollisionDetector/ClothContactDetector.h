@@ -130,23 +130,23 @@ namespace GAIA {
 		FloatingType minDisToPrimitives;
 	};
 
-	struct ClothContactDetector 
+	struct ClothContactDetector
 	{
 		typedef std::shared_ptr<ClothContactDetector> SharedPtr;
 		typedef ClothContactDetector* Ptr;
 
 		ClothContactDetector(const ClothContactDetectorParameters::SharedPtr pParameters);
-		void initialize(std::vector<TriMeshFEM::SharedPtr> in_targetMeshes);
+		void initialize(std::vector<TriMeshFEM::SharedPtr> in_targetMeshes, int in_numSimMeshes);
 		bool contactQueryVF(IdType meshId, IdType vId, ClothVFContactQueryResult* pResult);
-		bool contactQueryFV(IdType meshId, IdType fId, ClothVFContactQueryResult* pResult, IdType centerVId=-1 );
+		bool contactQueryFV(IdType meshId, IdType fId, ClothVFContactQueryResult* pResult, IdType centerVId = -1);
 		bool contactQueryEE(IdType meshId, IdType vId, ClothEEContactQueryResult* pResult);
 
 		void updateBVH(RTCBuildQuality sceneQuality = RTC_BUILD_QUALITY_REFIT);
 
-		void resetFaceContactInfo() 
+		void resetFaceContactInfo()
 		{
-			for (size_t i = 0; i < faceMinDisToVertices.size(); i++){
-				for (size_t j = 0; j < faceMinDisToVertices[i].size(); j++){
+			for (size_t i = 0; i < faceMinDisToVertices.size(); i++) {
+				for (size_t j = 0; j < faceMinDisToVertices[i].size(); j++) {
 					faceMinDisToVertices[i][j] = pParams->maxQueryDis;
 					faceContactInfos[i][j].clear();
 				}
@@ -175,6 +175,7 @@ namespace GAIA {
 		std::vector<std::vector<std::atomic<FloatingType>>> faceMinDisToVertices;
 		std::vector<std::vector<CPArrayStaticAtomic<FVContactInfo, FV_CONTACT_PREALLOCATE>>> faceContactInfos;
 		std::vector<TriMeshFEM::SharedPtr> targetMeshes;
+		int numSimMeshes;
 
 		RTCScene targetMeshFacesScene;
 		RTCDevice device;
@@ -182,4 +183,22 @@ namespace GAIA {
 
 	void updateVFContactPointInfo(std::vector<std::shared_ptr<TriMeshFEM>>& meshPtrs, VFContactPointInfo& contactPointInfo);
 	void updateEEContactPointInfo(std::vector<std::shared_ptr<TriMeshFEM>>& meshPtrs, EEContactPointInfo& contactPointInfo);
+
+	template<typename T>
+	inline void update_min(std::atomic<T>& atom, const T val)
+	{
+		for (T atom_val = atom;
+			atom_val > val &&
+			!atom.compare_exchange_weak(atom_val, val, std::memory_order_relaxed);
+			);
+	}
+
+	template<typename T>
+	inline void update_max(std::atomic<T>& atom, const T val)
+	{
+		for (T atom_val = atom;
+			atom_val < val &&
+			!atom.compare_exchange_weak(atom_val, val, std::memory_order_relaxed);
+			);
+	}
 }

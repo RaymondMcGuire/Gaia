@@ -22,7 +22,7 @@ namespace GAIA {
         // collider includes meshes not from simulation, such as  
         virtual void initializeCollider();
         // return a pointer to the base class of the collider mesh
-        ColliderTrimeshBase::SharedPtr createColliderMesh(nlohmann::json& colliderMeshJsonParams);
+        ColliderTriMeshBase::SharedPtr createColliderMesh(nlohmann::json& colliderMeshJsonParams);
         virtual void initializeViewer();
 
         virtual void updateCollider();
@@ -42,10 +42,12 @@ namespace GAIA {
 		}
 
         std::vector<TriMeshFEM::SharedPtr> baseTriMeshesForSimulation;
-        std::vector<ColliderTrimeshBase::SharedPtr> colliderMeshes;
+        std::vector<ColliderTriMeshBase::SharedPtr> colliderTriMeshes;
 
-        // baseTriMeshesForSimulation + colliderMeshes, in that order
+        // baseTriMeshesForSimulation + colliderTriMeshes, in that order
         std::vector<TriMeshFEM::SharedPtr> triMeshesAll;
+
+        size_t numAllFaces;
         
         ClothContactDetectorParameters::SharedPtr pClothContactDetectorParameters;
         ClothContactDetector::SharedPtr pClothContactDetector;

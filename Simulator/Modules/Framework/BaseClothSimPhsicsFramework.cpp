@@ -42,10 +42,14 @@ void BaseClothPhsicsFramework::initialize()
 	//#endif // KEEP_MESHFRAME_MESHES
 
 	//cpu_parallel_for(0, objectParamsList.objectParams.size(), [&](int iMesh) {
+	numAllVertices = 0;
 	for (int iMesh = 0; iMesh < objectParamsList->objectParams.size(); ++iMesh) {
 
-
 		TriMeshFEM::SharedPtr pTriMesh = initializeMaterial(objectParamsList->objectParams[iMesh], basePhysicsParams, this);
+		numAllVertices += pTriMesh->numVertices();
+		numAllEdges += pTriMesh->numEdges();
+		numAllFaces += pTriMesh->numFaces();
+
 		baseTriMeshesForSimulation[iMesh] = pTriMesh;
 
 		std::cout << "Added " << objectParamsList->objectParams[iMesh]->materialName
@@ -65,33 +69,33 @@ void BaseClothPhsicsFramework::initialize()
 	pClothContactDetector = std::make_shared<ClothContactDetector>(pClothContactDetectorParameters);
 	triMeshesAll = baseTriMeshesForSimulation;
 
-	for (int i = 0; i < colliderMeshes.size(); i++)
+	for (int i = 0; i < colliderTriMeshes.size(); i++)
 	{
-		triMeshesAll.push_back(colliderMeshes[i]);
+		triMeshesAll.push_back(colliderTriMeshes[i]);
 	}
 
-	pClothContactDetector->initialize(triMeshesAll);
+	pClothContactDetector->initialize(triMeshesAll, baseTriMeshesForSimulation.size());
 }
 
 void GAIA::BaseClothPhsicsFramework::initializeCollider()
 {
 	pDynamicCollider = std::make_shared<DynamicCollider>(pDynamicColliderParameter);
-	
+
 	nlohmann::json colliderMeshsJson = colliderJsonParams["ColliderMeshes"];
 	for (size_t i = 0; i < colliderMeshsJson.size(); i++)
 	{
-		colliderMeshes.push_back(createColliderMesh(colliderMeshsJson[i]));
+		colliderTriMeshes.push_back(createColliderMesh(colliderMeshsJson[i]));
 	}
 
-	pDynamicCollider->initialize(colliderMeshes);
+	pDynamicCollider->initialize(colliderTriMeshes);
 }
 
 
 
-ColliderTrimeshBase::SharedPtr GAIA::BaseClothPhsicsFramework::createColliderMesh(nlohmann::json& colliderMeshJsonParams)
+ColliderTriMeshBase::SharedPtr GAIA::BaseClothPhsicsFramework::createColliderMesh(nlohmann::json& colliderMeshJsonParams)
 {
-	ColliderTrimeshBase::SharedPtr pColliderMesh = nullptr;
-	ColliderTrimeshBaseParams::SharedPtr pColliderMeshParams = nullptr;
+	ColliderTriMeshBase::SharedPtr pColliderMesh = nullptr;
+	ColliderTriMeshBaseParams::SharedPtr pColliderMeshParams = nullptr;
 
 	if (colliderMeshJsonParams["colliderType"] == "TriMeshSequence")
 	{
@@ -99,7 +103,7 @@ ColliderTrimeshBase::SharedPtr GAIA::BaseClothPhsicsFramework::createColliderMes
 		pColliderMeshParams->fromJson(colliderMeshJsonParams);
 		pColliderMesh = std::make_shared<ColliderTrimeshSequence>();
 	}
-	else 
+	else
 	{
 		std::cerr << "Error! Unrecognized collider type: " << pColliderMeshParams->colliderType << std::endl;
 		exit(-1);
@@ -128,7 +132,7 @@ void BaseClothPhsicsFramework::writeOutputs(std::string outFolder, int frameId)
 	std::string outNumber = aSs.str();
 	std::string outFile = outFolder + "/A" + outNumber + "." + basePhysicsParams->outputExt;
 
-	std::string tetMeshOutStatistics = outFolder + "/Statistics";
+	std::string statisticsOutFolder = outFolder + "/Statistics";
 
 	if (basePhysicsParams->outputExt == "ply")
 	{
@@ -136,6 +140,25 @@ void BaseClothPhsicsFramework::writeOutputs(std::string outFolder, int frameId)
 	}
 	else if (basePhysicsParams->outputExt == "obj") {
 		// writeAllToObj(outFile.c_str(), getSoftBodies(), physicsAllParams.pPhysicsParams.saveAllModelsTogether);
+	}
+	else if (basePhysicsParams->outputExt == "bin")
+	{
+		if (frameId == 0)
+		{
+			std::string templateMeshOutOutPath = outFolder + "/TemplateMesh";
+			MF::IO::createFolder(templateMeshOutOutPath);
+
+			std::string templateMeshesName = outFolder + "/TemplateMesh/TemplateMesh.ply";
+			writeAllToPLY(templateMeshesName.c_str(), baseTriMeshesForSimulation, false, true);
+		}
+		writeAllToBinary(outFile.c_str(), baseTriMeshesForSimulation);
+
+		if (!(frameId % basePhysicsParams->binaryModeVisualizationSteps))
+		{
+			std::string outFileVis = outFolder + "/A" + outNumber + ".ply";
+
+			writeAllToPLY(outFileVis.c_str(), baseTriMeshesForSimulation, basePhysicsParams->saveAllModelsTogether, basePhysicsParams->saveAllModelsTogether);
+		}
 	}
 	else
 	{
@@ -152,7 +175,6 @@ void BaseClothPhsicsFramework::writeOutputs(std::string outFolder, int frameId)
 		state.fromPhysics(*this);
 		state.writeToJsonFile(outFileState, 2, &outFileState);
 	}
-
 }
 
 void GAIA::BaseClothPhsicsFramework::recoverFromState(std::string& stateFile)
