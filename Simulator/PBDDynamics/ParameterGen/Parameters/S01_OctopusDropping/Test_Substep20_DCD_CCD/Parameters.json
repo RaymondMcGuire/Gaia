@@ -1,6 +1,6 @@
 {
   "CollisionParams": {
-    "allowCCD": true,
+    "allowCCD": false,
     "allowDCD": true,
     "checkFeasibleRegion": true,
     "checkTetTraverse": true,

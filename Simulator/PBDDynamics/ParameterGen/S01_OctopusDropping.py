@@ -27,9 +27,6 @@ if __name__ == '__main__':
     parameters["CollisionParams"]["feasibleRegionEpsilon"] = 0.02
     parameters["CollisionParams"]["maxSearchDistanceMultiplier"] = 1.5
 
-    parameters["CollisionParams"]["allowCCD"] = True
-    parameters["CollisionParams"]["allowDCD"] = True
-
     parameters["PhysicsParams"]["collisionDetectionSubSteps"] = 1
     parameters["PhysicsParams"]["iterations"] = 2
     parameters["PhysicsParams"]["numSubsteps"] = 20
@@ -44,7 +41,7 @@ if __name__ == '__main__':
     }
 
     experimentName = "Test_Substep20_DCD_CCD"
-    parameters["CollisionParams"]["allowCCD"] = True
+    parameters["CollisionParams"]["allowCCD"] = False
     parameters["CollisionParams"]["allowDCD"] = True
     parameters["PhysicsParams"]["iterations"] = 3
     parameters["PhysicsParams"]["numSubsteps"] = 20

@@ -8,237 +8,227 @@
 
 namespace GAIA {
 
-	struct CollisionStatistics : public MF::BaseJsonConfig
-	{
-		// number of total sub-timesteps
-		std::vector<int> numOfCollisionsDCDs;
-		std::vector<int> numOfCollisionsCCDs;
-		// number of total sub-timesteps x number of DCD result
-		std::vector<std::vector<int>> numOfBVHQuerysEachStep;
-		std::vector<std::vector<int>> numOfTetTraversal;
-		std::vector<std::vector<int>> numTetsTraversed;
+struct CollisionStatistics : public MF::BaseJsonConfig {
+  // number of total sub-timesteps
+  std::vector<int> numOfCollisionsDCDs;
+  std::vector<int> numOfCollisionsCCDs;
+  // number of total sub-timesteps x number of DCD result
+  std::vector<std::vector<int>> numOfBVHQuerysEachStep;
+  std::vector<std::vector<int>> numOfTetTraversal;
+  std::vector<std::vector<int>> numTetsTraversed;
 
-		virtual bool fromJson(nlohmann::json& collisionParam) {
-			EXTRACT_FROM_JSON(collisionParam, numOfCollisionsDCDs);
-			EXTRACT_FROM_JSON(collisionParam, numOfCollisionsCCDs);
-			EXTRACT_FROM_JSON(collisionParam, numOfBVHQuerysEachStep);
-			EXTRACT_FROM_JSON(collisionParam, numOfTetTraversal);
-			EXTRACT_FROM_JSON(collisionParam, numTetsTraversed);
+  virtual bool fromJson(nlohmann::json &collisionParam) {
+    EXTRACT_FROM_JSON(collisionParam, numOfCollisionsDCDs);
+    EXTRACT_FROM_JSON(collisionParam, numOfCollisionsCCDs);
+    EXTRACT_FROM_JSON(collisionParam, numOfBVHQuerysEachStep);
+    EXTRACT_FROM_JSON(collisionParam, numOfTetTraversal);
+    EXTRACT_FROM_JSON(collisionParam, numTetsTraversed);
 
-			return true;
-		}
+    return true;
+  }
 
-		virtual bool toJson(nlohmann::json& collisionParam) {
-			PUT_TO_JSON(collisionParam, numOfCollisionsDCDs);
-			PUT_TO_JSON(collisionParam, numOfCollisionsCCDs);
-			PUT_TO_JSON(collisionParam, numOfBVHQuerysEachStep);
-			PUT_TO_JSON(collisionParam, numOfTetTraversal);
-			PUT_TO_JSON(collisionParam, numTetsTraversed);
+  virtual bool toJson(nlohmann::json &collisionParam) {
+    PUT_TO_JSON(collisionParam, numOfCollisionsDCDs);
+    PUT_TO_JSON(collisionParam, numOfCollisionsCCDs);
+    PUT_TO_JSON(collisionParam, numOfBVHQuerysEachStep);
+    PUT_TO_JSON(collisionParam, numOfTetTraversal);
+    PUT_TO_JSON(collisionParam, numTetsTraversed);
 
-			return true;
+    return true;
+  }
+};
 
-		}
-	};
+struct CollisionDetectionParamters : public MF::BaseJsonConfig {
+  // collision detection parameters
+  bool allowCCD = false;
+  bool allowDCD = true;
 
-	struct CollisionDetectionParamters : public MF::BaseJsonConfig
-	{
-		// collision detection parameters
-		bool allowCCD = true;
-		bool allowDCD = true;
+  // DCD parameters
+  bool checkFeasibleRegion = true;
+  bool checkTetTraverse = true;
+  bool handleSelfCollision = true;
+  bool stopTraversingAfterPassingQueryPoint = true;
+  bool tetrahedralTraverseForNonSelfIntersection = true;
+  bool useStaticTraverse = true;
+  bool restPoseCloestPoint = false;
+  bool loopLessTraverse = false;
+  int maxNumberOfCollisions = 1;
 
-		// DCD parameters
-		bool checkFeasibleRegion = true;
-		bool checkTetTraverse = true;
-		bool handleSelfCollision = true;
-		bool stopTraversingAfterPassingQueryPoint = true;
-		bool tetrahedralTraverseForNonSelfIntersection = true;
-		bool useStaticTraverse = true;
-		bool restPoseCloestPoint = false;
-		bool loopLessTraverse = false;
-		int maxNumberOfCollisions = 1;
+  // CCD parameters
+  bool doEdgeEdgeCCD = false;
 
-		// CCD parameters
-		bool doEdgeEdgeCCD = false;
+  bool shiftQueryPointToCenter = true;
+  float centerShiftLevel = 0.01f;
+  int maxNumberOfBVHQuery = 500;
 
-		bool shiftQueryPointToCenter = true;
-		float centerShiftLevel = 0.01f;
-		int maxNumberOfBVHQuery = 500;
+  // collision info computation
+  bool computeContactNormal = false;
 
-		// collision info computation
-		bool computeContactNormal = false;
+  // int numberOfBVHQuery = 0;
+  // int numberOfTetTraversal = 0;
+  // int numberOfTetsTraversed = 0;
 
-		//int numberOfBVHQuery = 0;
-		//int numberOfTetTraversal = 0;
-		//int numberOfTetsTraversed = 0;
+  // tetrahedral traverse parameters
+  float feasibleRegionEpsilon = 1e-2f;
+  float rayTriIntersectionEPSILON = 1e-10f;
+  float maxSearchDistanceMultiplier = 1.8f;
 
-		// tetrahedral traverse parameters
-		float feasibleRegionEpsilon = 1e-2f;
-		float rayTriIntersectionEPSILON = 1e-10f;
-		float maxSearchDistanceMultiplier = 1.8f;
+  // volumetric related collision
+  bool allowVolumetricCollision = false;
 
-		// volumetric related collision
-		bool allowVolumetricCollision = false;
+  virtual bool fromJson(nlohmann::json &collisionParam) {
+    EXTRACT_FROM_JSON(collisionParam, allowCCD);
+    EXTRACT_FROM_JSON(collisionParam, allowDCD);
+    EXTRACT_FROM_JSON(collisionParam, checkTetTraverse);
+    EXTRACT_FROM_JSON(collisionParam, checkFeasibleRegion);
+    EXTRACT_FROM_JSON(collisionParam,
+                      tetrahedralTraverseForNonSelfIntersection);
+    EXTRACT_FROM_JSON(collisionParam, handleSelfCollision);
+    EXTRACT_FROM_JSON(collisionParam, stopTraversingAfterPassingQueryPoint);
+    EXTRACT_FROM_JSON(collisionParam, maxNumberOfCollisions);
 
-		virtual bool fromJson(nlohmann::json& collisionParam) {
-			EXTRACT_FROM_JSON(collisionParam, allowCCD);
-			EXTRACT_FROM_JSON(collisionParam, allowDCD);
-			EXTRACT_FROM_JSON(collisionParam, checkTetTraverse);
-			EXTRACT_FROM_JSON(collisionParam, checkFeasibleRegion);
-			EXTRACT_FROM_JSON(collisionParam, tetrahedralTraverseForNonSelfIntersection);
-			EXTRACT_FROM_JSON(collisionParam, handleSelfCollision);
-			EXTRACT_FROM_JSON(collisionParam, stopTraversingAfterPassingQueryPoint);
-			EXTRACT_FROM_JSON(collisionParam, maxNumberOfCollisions);
+    EXTRACT_FROM_JSON(collisionParam, computeContactNormal);
 
-			EXTRACT_FROM_JSON(collisionParam, computeContactNormal);
+    EXTRACT_FROM_JSON(collisionParam, shiftQueryPointToCenter);
+    EXTRACT_FROM_JSON(collisionParam, centerShiftLevel);
 
-			EXTRACT_FROM_JSON(collisionParam, shiftQueryPointToCenter);
-			EXTRACT_FROM_JSON(collisionParam, centerShiftLevel);
+    EXTRACT_FROM_JSON(collisionParam, feasibleRegionEpsilon);
+    EXTRACT_FROM_JSON(collisionParam, rayTriIntersectionEPSILON);
+    EXTRACT_FROM_JSON(collisionParam, maxSearchDistanceMultiplier);
+    EXTRACT_FROM_JSON(collisionParam, useStaticTraverse);
 
-			EXTRACT_FROM_JSON(collisionParam, feasibleRegionEpsilon);
-			EXTRACT_FROM_JSON(collisionParam, rayTriIntersectionEPSILON);
-			EXTRACT_FROM_JSON(collisionParam, maxSearchDistanceMultiplier);
-			EXTRACT_FROM_JSON(collisionParam, useStaticTraverse);
+    EXTRACT_FROM_JSON(collisionParam, restPoseCloestPoint);
+    EXTRACT_FROM_JSON(collisionParam, loopLessTraverse);
 
-			EXTRACT_FROM_JSON(collisionParam, restPoseCloestPoint);
-			EXTRACT_FROM_JSON(collisionParam, loopLessTraverse);
+    EXTRACT_FROM_JSON(collisionParam, allowVolumetricCollision);
 
-			EXTRACT_FROM_JSON(collisionParam, allowVolumetricCollision);
+    return true;
+  }
 
+  virtual bool toJson(nlohmann::json &collisionParam) {
+    PUT_TO_JSON(collisionParam, allowCCD);
+    PUT_TO_JSON(collisionParam, allowDCD);
+    PUT_TO_JSON(collisionParam, checkTetTraverse);
+    PUT_TO_JSON(collisionParam, checkFeasibleRegion);
+    PUT_TO_JSON(collisionParam, tetrahedralTraverseForNonSelfIntersection);
+    PUT_TO_JSON(collisionParam, handleSelfCollision);
+    PUT_TO_JSON(collisionParam, stopTraversingAfterPassingQueryPoint);
+    PUT_TO_JSON(collisionParam, maxNumberOfCollisions);
 
-			return true;
-		}
+    PUT_TO_JSON(collisionParam, computeContactNormal);
 
-		virtual bool toJson(nlohmann::json& collisionParam) {
-			PUT_TO_JSON(collisionParam, allowCCD);
-			PUT_TO_JSON(collisionParam, allowDCD);
-			PUT_TO_JSON(collisionParam, checkTetTraverse);
-			PUT_TO_JSON(collisionParam, checkFeasibleRegion);
-			PUT_TO_JSON(collisionParam, tetrahedralTraverseForNonSelfIntersection);
-			PUT_TO_JSON(collisionParam, handleSelfCollision);
-			PUT_TO_JSON(collisionParam, stopTraversingAfterPassingQueryPoint);
-			PUT_TO_JSON(collisionParam, maxNumberOfCollisions);
+    PUT_TO_JSON(collisionParam, shiftQueryPointToCenter);
+    PUT_TO_JSON(collisionParam, centerShiftLevel);
 
-			PUT_TO_JSON(collisionParam, computeContactNormal);
+    PUT_TO_JSON(collisionParam, feasibleRegionEpsilon);
+    PUT_TO_JSON(collisionParam, rayTriIntersectionEPSILON);
+    PUT_TO_JSON(collisionParam, maxSearchDistanceMultiplier);
+    PUT_TO_JSON(collisionParam, useStaticTraverse);
 
-			PUT_TO_JSON(collisionParam, shiftQueryPointToCenter);
-			PUT_TO_JSON(collisionParam, centerShiftLevel);
+    PUT_TO_JSON(collisionParam, restPoseCloestPoint);
+    PUT_TO_JSON(collisionParam, loopLessTraverse);
 
-			PUT_TO_JSON(collisionParam, feasibleRegionEpsilon);
-			PUT_TO_JSON(collisionParam, rayTriIntersectionEPSILON);
-			PUT_TO_JSON(collisionParam, maxSearchDistanceMultiplier);
-			PUT_TO_JSON(collisionParam, useStaticTraverse);
+    PUT_TO_JSON(collisionParam, allowVolumetricCollision);
 
-			PUT_TO_JSON(collisionParam, restPoseCloestPoint);
-			PUT_TO_JSON(collisionParam, loopLessTraverse);
+    return true;
+  }
+};
 
-			PUT_TO_JSON(collisionParam, allowVolumetricCollision);
+enum class ClosestPointOnTriangleType {
+  AtA,
+  AtB,
+  AtC,
+  AtAB,
+  AtBC,
+  AtAC,
+  AtInterior,
+  NotFound
+};
 
-			return true;
+enum class ClosestPointOnPrimitiveType {
+  AtVertex,
+  AtEdge,
+  AtFace,
+  AtInterior,
+  NotFound
+};
 
-		}
-	};
+ClosestPointOnPrimitiveType
+getClosestPointOnPrimitiveType(const ClosestPointOnTriangleType &type);
 
-	enum class ClosestPointOnTriangleType
-	{
-		AtA,
-		AtB,
-		AtC,
-		AtAB,
-		AtBC,
-		AtAC,
-		AtInterior,
-		NotFound
-	};
+struct DiscreteCollisionDetector;
 
-	enum class ClosestPointOnPrimitiveType
-	{
-		AtVertex,
-		AtEdge,
-		AtFace,
-		AtInterior,
-		NotFound
-	};
+struct CollidingPointInfo {
+  // for DCD only
+  Vec3 closestSurfacePt;
+  Vec3 closestSurfacePtBarycentrics;
+  // for DCD + CCD
+  Vec3 closestPointNormal;
 
-	ClosestPointOnPrimitiveType getClosestPointOnPrimitiveType(const ClosestPointOnTriangleType& type);
+  IdType intersectedElement;
+  IdType intersectedMeshId;
 
-	struct DiscreteCollisionDetector;
+  IdType closestSurfaceFaceId;
+  ClosestPointOnTriangleType closestPointType;
 
-	struct CollidingPointInfo {
-		// for DCD only
-		Vec3 closestSurfacePt;
-		Vec3 closestSurfacePtBarycentrics;
-		// for DCD + CCD
-		Vec3 closestPointNormal;
+  bool shortestPathFound;
+};
 
-		IdType intersectedElement;
-		IdType intersectedMeshId;
+struct CollisionDetectionResult {
+  CollisionDetectionResult() {}
 
-		IdType closestSurfaceFaceId;
-		ClosestPointOnTriangleType closestPointType;
+  int numIntersections() { return collidingPts.size(); }
+  void clear() {
+    collidingPts.clear();
 
-		bool shortestPathFound;
-	};
+    // numberOfBVHQuery = 0;
+    // numberOfTetTraversal = 0;
+    // numberOfTetsTraversed = 0;
+  }
 
-	struct CollisionDetectionResult
-	{
-		CollisionDetectionResult()
-		{}
+  CPArray<CollidingPointInfo, PREALLOCATED_NUM_COLLISIONS> collidingPts;
 
-		int numIntersections() { return collidingPts.size(); }
-		void clear() {
-			collidingPts.clear();
+  // set to non-negative when doing vertex collision detection
+  int idVQuery = -1;
+  // set to non-nullptr when doing tet centroid collision detection
+  int idTetQuery = -1;
 
-			//numberOfBVHQuery = 0;
-			//numberOfTetTraversal = 0;
-			//numberOfTetsTraversed = 0;
-		}
+  int idTMQuery = -1;
 
-		CPArray<CollidingPointInfo, PREALLOCATED_NUM_COLLISIONS> collidingPts;
+  // std::map<unsigned int, PathFinder::TM::Ptr>* pTetmeshGeoIdToPointerMap;
+  // std::map<PathFinder::TM::Ptr, unsigned int>* pTetmeshPtrToTetMeshIndexMap;
+  // std::vector<std::vector<PathFinder::TM::TPtr>>* pTetTraversed = nullptr;
+  // std::vector<PathFinder::TM::Ptr>* pTetMeshPtrs;
+  bool handleSelfIntersection = true;
+  bool fromCCD = false;
 
+  float penetrationDepth = -1.f;
 
-		// set to non-negative when doing vertex collision detection
-		int idVQuery = -1;
-		// set to non-nullptr when doing tet centroid collision detection
-		int idTetQuery = -1;
+  // int numberOfBVHQuery = 0;
+  // int numberOfTetTraversal = 0;
+  // int numberOfTetsTraversed = 0;
 
-		int idTMQuery = -1;
+  // either CCD or DCD
+  void *pDetector = nullptr;
+};
 
-		//std::map<unsigned int, PathFinder::TM::Ptr>* pTetmeshGeoIdToPointerMap;
-		//std::map<PathFinder::TM::Ptr, unsigned int>* pTetmeshPtrToTetMeshIndexMap;
-		//std::vector<std::vector<PathFinder::TM::TPtr>>* pTetTraversed = nullptr;
-		//std::vector<PathFinder::TM::Ptr>* pTetMeshPtrs;
-		bool handleSelfIntersection = true;
-		bool fromCCD = false;
-
-		float penetrationDepth = -1.f;
-
-
-		//int numberOfBVHQuery = 0;
-		//int numberOfTetTraversal = 0;
-		//int numberOfTetsTraversed = 0;
-
-		// either CCD or DCD
-		void* pDetector = nullptr;
-	};
-
-	inline ClosestPointOnPrimitiveType GAIA::getClosestPointOnPrimitiveType(const ClosestPointOnTriangleType& type)
-	{
-		switch (type)
-		{
-		case ClosestPointOnTriangleType::AtA:
-		case ClosestPointOnTriangleType::AtB:
-		case ClosestPointOnTriangleType::AtC:
-			return ClosestPointOnPrimitiveType::AtVertex;
-		case ClosestPointOnTriangleType::AtAB:
-		case ClosestPointOnTriangleType::AtBC:
-		case ClosestPointOnTriangleType::AtAC:
-			return ClosestPointOnPrimitiveType::AtEdge;
-		case ClosestPointOnTriangleType::AtInterior:
-			return ClosestPointOnPrimitiveType::AtFace;
-		case ClosestPointOnTriangleType::NotFound:
-			return ClosestPointOnPrimitiveType::NotFound;
-		default:
-			return ClosestPointOnPrimitiveType::NotFound;
-		}
-	}
+inline ClosestPointOnPrimitiveType
+GAIA::getClosestPointOnPrimitiveType(const ClosestPointOnTriangleType &type) {
+  switch (type) {
+  case ClosestPointOnTriangleType::AtA:
+  case ClosestPointOnTriangleType::AtB:
+  case ClosestPointOnTriangleType::AtC:
+    return ClosestPointOnPrimitiveType::AtVertex;
+  case ClosestPointOnTriangleType::AtAB:
+  case ClosestPointOnTriangleType::AtBC:
+  case ClosestPointOnTriangleType::AtAC:
+    return ClosestPointOnPrimitiveType::AtEdge;
+  case ClosestPointOnTriangleType::AtInterior:
+    return ClosestPointOnPrimitiveType::AtFace;
+  case ClosestPointOnTriangleType::NotFound:
+    return ClosestPointOnPrimitiveType::NotFound;
+  default:
+    return ClosestPointOnPrimitiveType::NotFound;
+  }
 }
+} // namespace GAIA
