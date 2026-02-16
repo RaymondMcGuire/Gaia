@@ -1,0 +1,2 @@
+D:\project\library\Gaia\Simulator\PBDDynamics\build\Release\pbd-dynamics.exe D:\project\library\Gaia\Simulator\PBDDynamics\ParameterGen\Parameters\S02_SquishyBallDropping\4LowResSquishyBallColliding_SeeNumCollisions\Models.json D:\project\library\Gaia\Simulator\PBDDynamics\ParameterGen\Parameters\S02_SquishyBallDropping\4LowResSquishyBallColliding_SeeNumCollisions\Parameters.json D:\project\library\Gaia\Simulator\PBDDynamics\output\S02_SquishyBallDropping\4LowResSquishyBallColliding_SeeNumCollisions -R D:\project\library\Gaia
+cmd /k

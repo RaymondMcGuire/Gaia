@@ -1,0 +1,180 @@
+{
+  "Models": [
+    {
+      "constantVelDamping": 0.02,
+      "density": 3,
+      "devCompliance": 0.0005,
+      "devDamping": 0.001,
+      "exponentialVelDamping": 0.95,
+      "friction_dynamic": 0.06,
+      "friction_static": 0.08,
+      "hasNoGravZone": false,
+      "initialVelocity": [
+        0,
+        -12.5,
+        0
+      ],
+      "materialName": "MassSpring",
+      "maxVelocityMagnitude": -1.0,
+      "noGravZoneThreshold": 0.0,
+      "path": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t",
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "shuffleParallelizationGroup": true,
+      "tetsColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.coloring.json",
+      "translation": [
+        0.0,
+        20.0,
+        2.5
+      ],
+      "translationBeforeScaling": [
+        0,
+        0,
+        0
+      ],
+      "volCompliance": 0.0,
+      "volDamping": 0.0,
+      "edgesColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.edgeColoring.json",
+      "damping": 0.001,
+      "noGravZone": false,
+      "velDmping": 0.68,
+      "maxVelocityThreshold": -1,
+      "UniformMass": false
+    },
+    {
+      "constantVelDamping": 0.02,
+      "density": 3,
+      "devCompliance": 0.0005,
+      "devDamping": 0.001,
+      "exponentialVelDamping": 0.95,
+      "friction_dynamic": 0.06,
+      "friction_static": 0.08,
+      "hasNoGravZone": false,
+      "initialVelocity": [
+        0,
+        -12.5,
+        0
+      ],
+      "materialName": "MassSpring",
+      "maxVelocityMagnitude": -1.0,
+      "noGravZoneThreshold": 0.0,
+      "path": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t",
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "shuffleParallelizationGroup": true,
+      "tetsColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.coloring.json",
+      "translation": [
+        2.5,
+        32.5,
+        1.5308084989341916e-16
+      ],
+      "translationBeforeScaling": [
+        0,
+        0,
+        0
+      ],
+      "volCompliance": 0.0,
+      "volDamping": 0.0,
+      "edgesColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.edgeColoring.json",
+      "damping": 0.001,
+      "noGravZone": false,
+      "velDmping": 0.68,
+      "maxVelocityThreshold": -1,
+      "UniformMass": false
+    },
+    {
+      "constantVelDamping": 0.02,
+      "density": 3,
+      "devCompliance": 0.0005,
+      "devDamping": 0.001,
+      "exponentialVelDamping": 0.95,
+      "friction_dynamic": 0.06,
+      "friction_static": 0.08,
+      "hasNoGravZone": false,
+      "initialVelocity": [
+        0,
+        -12.5,
+        0
+      ],
+      "materialName": "MassSpring",
+      "maxVelocityMagnitude": -1.0,
+      "noGravZoneThreshold": 0.0,
+      "path": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t",
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "shuffleParallelizationGroup": true,
+      "tetsColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.coloring.json",
+      "translation": [
+        3.061616997868383e-16,
+        45.0,
+        -2.5
+      ],
+      "translationBeforeScaling": [
+        0,
+        0,
+        0
+      ],
+      "volCompliance": 0.0,
+      "volDamping": 0.0,
+      "edgesColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.edgeColoring.json",
+      "damping": 0.001,
+      "noGravZone": false,
+      "velDmping": 0.68,
+      "maxVelocityThreshold": -1,
+      "UniformMass": false
+    },
+    {
+      "constantVelDamping": 0.02,
+      "density": 3,
+      "devCompliance": 0.0005,
+      "devDamping": 0.001,
+      "exponentialVelDamping": 0.95,
+      "friction_dynamic": 0.06,
+      "friction_static": 0.08,
+      "hasNoGravZone": false,
+      "initialVelocity": [
+        0,
+        -12.5,
+        0
+      ],
+      "materialName": "MassSpring",
+      "maxVelocityMagnitude": -1.0,
+      "noGravZoneThreshold": 0.0,
+      "path": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t",
+      "scale": [
+        0.3,
+        0.3,
+        0.3
+      ],
+      "shuffleParallelizationGroup": true,
+      "tetsColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.coloring.json",
+      "translation": [
+        -2.5,
+        57.5,
+        -4.592425496802574e-16
+      ],
+      "translationBeforeScaling": [
+        0,
+        0,
+        0
+      ],
+      "volCompliance": 0.0,
+      "volDamping": 0.0,
+      "edgesColoringCategoriesPath": "${REPO_ROOT}\\Data\\mesh_models\\ModelsDifferentRes\\sphere-tentacles-v3\\Hollow\\NoPreservingSurface\\sphere2-tentacles1-center85.t.edgeColoring.json",
+      "damping": 0.001,
+      "noGravZone": false,
+      "velDmping": 0.68,
+      "maxVelocityThreshold": -1,
+      "UniformMass": false
+    }
+  ]
+}

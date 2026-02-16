@@ -1,10 +1,15 @@
 #pragma once
 #include <vector>
+#include <array>
 #include <algorithm>
 #include <string>
 #include <fstream>
 #include <iostream>
 #include <map>
+#include <set>
+
+#include "Json/json.hpp"
+#include "Graph.h"
 
 namespace GAIA {
 	namespace GraphColoring {
